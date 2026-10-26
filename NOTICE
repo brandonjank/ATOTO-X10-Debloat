@@ -1,0 +1,22 @@
+ATOTO X10 Debloat
+Copyright 2026 ATOTO X10 Debloat contributors
+
+Lawnchair X10 is an independent local adaptation, not an official Lawnchair or
+ATOTO release. ATOTO, Lawnchair, Google, Audible and Pandora names identify
+compatible products and remain their respective owners' marks.
+
+The optional launcher build uses Lawnchair 15 Beta 3 (v15.0.0-beta3.0), which
+includes Android Launcher3 and third-party dependencies. This source release
+contains our layout helper and build transformation, not the upstream APK or
+its decoded code/assets. Upstream notices and dependency licenses remain
+applicable to locally built binaries.
+
+Upstream Lawnchair LICENSE.txt identifies The Android Open Source Project
+(2005-2008) and Lawnchair (2024) under Apache License 2.0. The canonical pinned
+license and release links are recorded in THIRD_PARTY.md.
+
+Modified launcher components in the locally built APK: DeviceProfile constructor,
+Hotseat.setInsets, BubbleTextView.applyIconAndLabel, package/provider/permission
+identity literals, AndroidManifest.xml, resources.arsc package name, and the
+added io.atoto.home.X10Dock helper. Original resource files and native libraries
+are retained. Changes are for namespace isolation and dock geometry only.

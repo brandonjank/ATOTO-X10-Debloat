@@ -1,0 +1,10 @@
+{
+  "java": "java",
+  "javac": "javac",
+  "keytool": "keytool",
+  "android_jar": "/YOUR_ANDROID_SDK/platforms/android-33/android.jar",
+  "aapt2": "/YOUR_ANDROID_SDK/build-tools/35.0.0/aapt2",
+  "zipalign": "/YOUR_ANDROID_SDK/build-tools/35.0.0/zipalign",
+  "d8_jar": "/YOUR_ANDROID_SDK/build-tools/35.0.0/lib/d8.jar",
+  "apksigner_jar": "/YOUR_ANDROID_SDK/build-tools/35.0.0/lib/apksigner.jar"
+}

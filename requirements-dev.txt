@@ -1,0 +1,2 @@
+# Host verification only. The normal audit/backup/cleanup CLI uses Python stdlib.
+androguard==4.1.3

@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="io.atoto.tools.audiblewidget" android:versionCode="1" android:versionName="1.0">
+  <uses-sdk android:minSdkVersion="26" android:targetSdkVersion="33"/>
+  <queries><package android:name="com.audible.application"/></queries>
+  <application android:label="X10 Audible Controls" android:allowBackup="false" android:supportsRtl="true" android:theme="@android:style/Theme.Material.NoActionBar">
+    <receiver android:name=".AudibleWidget" android:label="Audible Compact Controls" android:exported="false">
+      <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+      <meta-data android:name="android.appwidget.provider" android:resource="@xml/audible_widget"/>
+    </receiver>
+  </application>
+</manifest>

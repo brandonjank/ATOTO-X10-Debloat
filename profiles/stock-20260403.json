@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "name": "ATOTO X10G2A7E stock Android 13, application 20260403.140715",
+  "status": "single-device experimental baseline; friend hardware validation required",
+  "identity": {
+    "model": "X10",
+    "sdk": "33",
+    "platform": "trinket",
+    "product_version": "20260403.140715",
+    "fingerprint": "ATOTO/X10/Multifunctional_Tablet:13/TKQ1.240227.001/20240912:user/release-keys"
+  },
+  "guard_apks": {
+    "/oem/app/ZHPower/ZHPower.apk": "b77358687aa400c896452cec0b7b18eceac3300704bc8edd446792f6dd7f41fd",
+    "/oem/app/ZHLogic/ZHLogic.apk": "0db47cc80747c7efe23ed7eb2036bff9a4e556610e45a1824ad376a77c57c64a",
+    "/oem/app/ZHDVRDaemon/ZHDVRDaemon.apk": "ce7df97a11a0b198e511b68d571f743e00331af491995da58493019051a041d0"
+  },
+  "optional_packages": {
+    "com.atoto.log.uploader": "OEM log upload; optional cloud function",
+    "org.atoto.gps": "Remote vehicle tracking; distinct from the required navigation location stack",
+    "com.atoto.push": "OEM remote/cloud wake and messaging",
+    "com.atoto.speechtotext": "DriveChat cloud speech",
+    "com.aidl.atoto.store": "OEM app store",
+    "com.android.dreams.phototable": "Photo screensaver",
+    "com.estrongs.android.pop": "ES file manager",
+    "com.qti.qcc": "Qualcomm feedback/QCC; not the radio HAL",
+    "com.qualcomm.qti.smq": "Qualcomm feedback/statistics",
+    "com.atoto.keepaliveservice": "Optional ATOTO keep-alive service; preserve on-device power service",
+    "org.atoto.autotest.print": "OEM diagnostic printing",
+    "com.google.android.printservice.recommendation": "Printer recommendations",
+    "com.android.adservices.api": "Advertising services",
+    "com.android.ondevicepersonalization.services": "Optional personalization services"
+  },
+  "protected_packages": [
+    "com.android.systemui", "com.android.launcher3", "com.zhonghong.logic", "com.zh.zhpower",
+    "com.zhonghong.can", "com.zhonghong.eq", "com.zhonghong.radio", "com.zhonghong.bluetooth",
+    "com.zhonghong.dvr", "com.zhonghong.dvrdaemon", "com.zhonghong.camera", "com.zjinnova.zlink",
+    "com.android.bluetooth", "com.google.android.gms", "com.android.vending", "com.zhonghong.voiceservice",
+    "com.qualcomm.location", "com.google.android.webview", "com.android.phone", "org.codeaurora.ims",
+    "com.qualcomm.qcrilmsgtunnel", "com.android.providers.telephony", "com.qti.phone",
+    "com.qualcomm.qti.telephonyservice", "com.google.android.apps.tycho", "com.android.documentsui",
+    "com.android.externalstorage", "com.zhonghong.hdmi"
+  ]
+}

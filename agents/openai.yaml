@@ -1,0 +1,4 @@
+interface:
+  display_name: "ATOTO X10 Debloat"
+  short_description: "Back up, tune and restore supported X10 head units"
+  default_prompt: "Use $atoto-x10-debloat to audit my X10 over Wi-Fi, back it up, and prepare a reversible cleanup that preserves its hardware features."
