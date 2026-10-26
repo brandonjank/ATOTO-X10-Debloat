@@ -9,7 +9,7 @@ a = p.parse_args()
 check()
 if a.out.exists(): p.error('Output already exists; choose a new release filename')
 a.out.parent.mkdir(parents=True, exist_ok=True)
-manifest = {'version': '0.1.0-preview', 'kind': 'source-only', 'files': []}
+manifest = {'version': json.loads((Path(__file__).resolve().parents[1]/'release-files.json').read_text())['version'], 'kind': 'source-only', 'files': []}
 with zipfile.ZipFile(a.out, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=9) as z:
     for name, path in release_files():
         # Source exports use LF on every host, matching .gitattributes.

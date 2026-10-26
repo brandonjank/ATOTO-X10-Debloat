@@ -1,34 +1,63 @@
 """Exercise mutation boundaries and rollback behavior without a real device."""
-import contextlib, copy, io, json
+import contextlib, copy, hashlib, io, json
 from pathlib import Path
 import sys, tempfile, unittest
+from types import SimpleNamespace
+from unittest import mock
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 import x10
 
 PKG = 'com.atoto.log.uploader'
+APK = b'test-apk'
+HASH = hashlib.sha256(APK).hexdigest()
+OEM = x10.component(x10.HOMES['oem'])
+OTHER_HOME = 'org.example.home/org.example.home.HomeActivity'
 
 class FakeDevice:
     def __init__(self):
         self.i = dict(x10.PROFILE['identity'], device_id_sha256='device-one')
         self.g = dict(x10.PROFILE['guard_apks'])
-        self.state = {PKG: 0}
+        self.state = {name: 0 for name in [PKG, *x10.PROFILE['protected_packages'], *x10.BACKUP_APPS, 'org.example.home']}
+        self.hidden, self.suspended, self.hashes = {}, {}, {}
         self.settings = {k: '1' for k in x10.SETTINGS['secure'][:3]}
         self.writes = []
         self.fail_after_write = False
+        self.launch_error = False
+        self.user = '0'
+        self.current_home = OEM
+        self.sim = 'LOADED,ABSENT'
+        self.after_write = lambda: None
     def identity(self): return self.i
     def guards(self): return self.g
     compatible = x10.Device.compatible
-    def package(self, name): return {'present': True, 'installed': True, 'enabled': self.state[name]}
+    def owner(self): x10.require(self.user == '0', 'Only Android owner user 0 is supported')
+    def home(self): return self.current_home
+    def homes(self): return {x10.component(h) for h in x10.HOMES.values()} | {OTHER_HOME}
+    def package(self, name):
+        if name not in self.state: return {'present': False, 'files': []}
+        return {'present': True, 'installed': True, 'enabled': self.state[name],
+                'hidden': self.hidden.get(name, False), 'suspended': self.suspended.get(name, False),
+                'files': [{'remote': '/apps/'+name+'.apk', 'sha256': self.hashes.get(name, HASH)}]}
+    def run(self, *args, **kwargs):
+        if args[0] != 'pull': raise AssertionError(args)
+        Path(args[2]).write_bytes(APK)
+        return SimpleNamespace(returncode=0, stdout='', stderr='')
     def shell(self, *args):
-        if args[:2] == ('settings', 'get'): return self.settings[args[3]]
+        if args[:2] == ('settings', 'get'): return self.settings.get(args[3], 'null')
+        if args == ('getprop', 'gsm.sim.state'): return self.sim
+        if args[0] == 'dumpsys' or args[:2] in (('settings', 'list'), ('pm', 'list')): return 'read-only evidence'
         self.writes.append(args)
         if args[0] == 'pm':
             self.state[args[-1]] = {v: k for k, v in x10.RESTORE.items()}[args[1]]
         elif args[:2] == ('settings', 'put'): self.settings[args[3]] = args[4]
         elif args[:2] == ('settings', 'delete'): self.settings[args[3]] = 'null'
+        elif args[:3] == ('cmd', 'package', 'set-home-activity'): self.current_home = args[-1]
+        elif args[:2] == ('am', 'start'):
+            if self.launch_error: return 'Error type 3\nError: Activity class does not exist.'
         else: raise AssertionError(args)
+        self.after_write()
         if self.fail_after_write: raise RuntimeError('Lost connection after device write')
-        return ''
+        return 'Success' if args[0] == 'cmd' else 'Status: ok'
 
 class TrialTests(unittest.TestCase):
     def setUp(self):
@@ -41,16 +70,24 @@ class TrialTests(unittest.TestCase):
         self.folder = Path(self.temp.name)
         (self.folder/'app.apk').write_bytes(b'test-apk')
         self.d = FakeDevice()
+        self.addCleanup(mock.patch.stopall)
+        mock.patch.dict(x10.PROFILE['optional_apk_sha256'], {PKG: [HASH]}).start()
+        names = set(x10.PROFILE['optional_packages']) | set(x10.PROFILE['protected_packages']) | set(x10.BACKUP_APPS)
         self.data = {'schema': 1, 'complete': True, 'identity': copy.deepcopy(self.d.i),
                      'guard_apks': dict(self.d.g), 'packages': {PKG: {'present': True, 'installed': True,
                      'enabled': 0, 'files': [{'local': 'app.apk', 'sha256': x10.digest(self.folder/'app.apk')}]}},
                      'settings': {'secure': dict(self.d.settings)}}
+        self.data.update(apks_copied=True, home=OEM, sim_state=self.d.sim,
+                         packages={n: self.d.package(n) for n in names})
+        for entry in self.data['packages'].values():
+            for file in entry['files']: file['local'] = 'app.apk'
+        x10.save(self.folder/'snapshot.json', self.data)
     def quiet(self, func, *args):
         with contextlib.redirect_stdout(io.StringIO()): return func(*args)
     def actions(self): return x10.plan(self.data, [PKG], True)
     def test_real_package_dump_states(self):
         self.assertEqual(x10.parse_package('  User 0: installed=false hidden=false stopped=true enabled=0 instant=false'),
-                         {'installed': False, 'enabled': 0})
+                         {'installed': False, 'enabled': 0, 'hidden': False, 'suspended': False})
         self.assertIsNone(x10.parse_package('Unable to find package: missing'))
     def test_preview_has_no_device_writes_or_journal(self):
         self.quiet(x10.apply, self.d, self.folder, self.data, self.actions(), False)
