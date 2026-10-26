@@ -54,7 +54,11 @@ adb -s SERIAL shell am start -a android.intent.action.MAIN -c android.intent.cat
 
 Recreate the 9×8 home and eight-item dock using the owner's apps. Add each widget
 through the standard widget picker. Android assigns fresh widget IDs. Only
-after a stable trial, select the new default home with `tools/x10.py ... home x10`.
+after a stable trial, select the new default home with
+`tools/x10.py --serial SERIAL home x10 --snapshot .local/before --execute`.
+Keep a verified snapshot and the original launcher's native export where available;
+the original default HOME is journaled before the switch. Recovery is
+`home original --snapshot .local/before --execute`, or a full `restore` preview.
 No OEM launcher disable, widget database injection or debugger attachment is
 part of the public installer. Native taskbar hiding is a separate customization.
 

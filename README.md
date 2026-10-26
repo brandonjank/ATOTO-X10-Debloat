@@ -18,6 +18,8 @@ Give your agent [SKILL.md](SKILL.md) and say:
 
 The skill and tools work directly from this folder. Installing the skill into
 an agent's skill directory is optional; copy the **whole folder** if doing so.
+The [agent runbook](docs/AGENT-RUNBOOK.md) provides the connection, backup,
+physical baseline, batch cleanup and interrupted-recovery sequence.
 
 ## Manual quick start
 
@@ -33,12 +35,18 @@ adb connect HEADUNIT_IP:CONNECTION_PORT
 python tools/x10.py --serial HEADUNIT_IP:CONNECTION_PORT audit
 python tools/x10.py --serial HEADUNIT_IP:CONNECTION_PORT snapshot --out .local/before --with-apks
 python tools/x10.py --serial HEADUNIT_IP:CONNECTION_PORT verify --snapshot .local/before
+python tools/x10.py --serial HEADUNIT_IP:CONNECTION_PORT check --snapshot .local/before --out .local/before-check.json
 ```
 
 `--adb` accepts an explicit executable path if ADB is not on PATH. All device
 commands require an explicit `--serial`; the tool never chooses a device.
 Snapshots contain private identifiers and device state: keep `.local/` private.
 Interrupted snapshots can be retried with `--resume` and the same arguments.
+Verification rejects incomplete inventories and metadata-only captures. The
+original HOME APK(s) and hashed settings/widget evidence are included. Export
+your original launcher layout through its native UI where supported; use
+`attach-export --snapshot .local/before --file LOCAL_EXPORT` to keep it with the
+backup, then verify again. A backup does not include private app data or accounts.
 
 Choose packages by reading [the profile](profiles/stock-20260403.json). The
 following example disables log upload and remote tracking, plus the screensaver:
@@ -52,11 +60,16 @@ firmware, unchanged device, verified APK backup and unchanged original state
 are required. The tool records intent **before** each write and verifies each
 result. It never uninstalls packages, clears app data, changes MCU/power delays,
 installs a ROM, roots the unit, or reboots automatically.
+Selected app APKs must also match the audited hashes in the profile. Core
+package checks run before and after cleanup; repeat the physical feature tests
+after every batch. Use a fresh snapshot for the next batch. Preview
+`restore --snapshot .local/before` to undo a partial or completed trial.
 
 ## What is included
 
 - `tools/x10.py`: audit, private snapshot, backup verification, selected cleanup,
-  journal restore, and switching among already installed home apps.
+  protected-stack checks, native-export attachment, journal restore, and
+  snapshot-bound switching among already installed home apps.
 - `profiles/`: fourteen optional packages and twenty-eight protected packages.
   Optional means the original owner chose not to use the corresponding feature;
   it does not establish that an app is malware.
@@ -92,7 +105,7 @@ from their publishers; no Google, Audible, Pandora or OEM binaries are bundled.
 ```powershell
 python -m unittest discover -s tests -v
 python tools/check_release.py
-python tools/package_release.py --out ../releases/ATOTO-X10-Debloat-0.1.0-preview.zip
+python tools/package_release.py --out ../releases/ATOTO-X10-Debloat-0.1.1-preview.zip
 ```
 
 The packager uses an explicit reviewed file list and produces a checksum and

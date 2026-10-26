@@ -31,13 +31,99 @@
     "com.android.ondevicepersonalization.services": "Optional personalization services"
   },
   "protected_packages": [
-    "com.android.systemui", "com.android.launcher3", "com.zhonghong.logic", "com.zh.zhpower",
-    "com.zhonghong.can", "com.zhonghong.eq", "com.zhonghong.radio", "com.zhonghong.bluetooth",
-    "com.zhonghong.dvr", "com.zhonghong.dvrdaemon", "com.zhonghong.camera", "com.zjinnova.zlink",
-    "com.android.bluetooth", "com.google.android.gms", "com.android.vending", "com.zhonghong.voiceservice",
-    "com.qualcomm.location", "com.google.android.webview", "com.android.phone", "org.codeaurora.ims",
-    "com.qualcomm.qcrilmsgtunnel", "com.android.providers.telephony", "com.qti.phone",
-    "com.qualcomm.qti.telephonyservice", "com.google.android.apps.tycho", "com.android.documentsui",
-    "com.android.externalstorage", "com.zhonghong.hdmi"
+    "com.android.systemui",
+    "com.android.launcher3",
+    "com.zhonghong.logic",
+    "com.zh.zhpower",
+    "com.zhonghong.can",
+    "com.zhonghong.eq",
+    "com.zhonghong.radio",
+    "com.zhonghong.bluetooth",
+    "com.zhonghong.dvr",
+    "com.zhonghong.dvrdaemon",
+    "com.zhonghong.camera",
+    "com.zjinnova.zlink",
+    "com.android.bluetooth",
+    "com.google.android.gms",
+    "com.android.vending",
+    "com.zhonghong.voiceservice",
+    "com.qualcomm.location",
+    "com.google.android.webview",
+    "com.android.phone",
+    "org.codeaurora.ims",
+    "com.qualcomm.qcrilmsgtunnel",
+    "com.android.providers.telephony",
+    "com.qti.phone",
+    "com.qualcomm.qti.telephonyservice",
+    "com.google.android.apps.tycho",
+    "com.android.documentsui",
+    "com.android.externalstorage",
+    "com.zhonghong.hdmi"
+  ],
+  "optional_apk_sha256": {
+    "com.atoto.log.uploader": [
+      "2b688b078d9c84bff6fa1547cc6ca8217b6492caacc0fa5e1a72252aa1c6aef3"
+    ],
+    "org.atoto.gps": [
+      "7f0ad47fbcd5c06cc11af2b20e75f2cc55acd49b2410d93682ae7a59813e1ec6"
+    ],
+    "com.atoto.push": [
+      "9a12177c5b217f937508ce6ef86443c042e8c0227f4271a45ef530620deb6b0e"
+    ],
+    "com.atoto.speechtotext": [
+      "dda82f32e77e07d142f827412f21bb734a70cd3a96ddd0483e66a788c47fe5d5"
+    ],
+    "com.aidl.atoto.store": [
+      "73724164aaf879c8f871de8b4611693faee2a31bd0015bb15fe75d31175fb25f"
+    ],
+    "com.android.dreams.phototable": [
+      "f937b0158f057f5822bd70bc051c26351cb78efc4380295e7fb3166ca9ee4863"
+    ],
+    "com.estrongs.android.pop": [
+      "be72c3e8f156e0199d67c96bad4448414143597c8c1f78f302352696447465b1"
+    ],
+    "com.qti.qcc": [
+      "963727b612a0aae70fb727d29789cc2414e00b98462aa1b08b4748ed15eccb87"
+    ],
+    "com.qualcomm.qti.smq": [
+      "ba0d360bf52f442233e3f503c9576d25cb8219dcc97f69ea6cd837e4041df7cd"
+    ],
+    "com.atoto.keepaliveservice": [
+      "aab41c4311ecd2362bedf464a4b9e8c0b4a9f6eafe79e76ee9bd8411f3fd5a89"
+    ],
+    "org.atoto.autotest.print": [
+      "4fee96c4b9b7d4d44a47d32c529ad830499dae9bb34ffab0a60fd2af22ef6fc5"
+    ],
+    "com.google.android.printservice.recommendation": [
+      "c112c99f0ebfb0c5904b45a64e1f102f2a641913d0e5ad45ec7dbac3862ac6fc"
+    ],
+    "com.android.adservices.api": [
+      "b4df4445e5db08fffe3242c8765943ac88f07bd7f82445eacbdb4ba93588f48d"
+    ],
+    "com.android.ondevicepersonalization.services": [
+      "d668e359f64f5fa22d5cdbcb35c67d6c8dcbc395a193c7046cac4dc89be738ce"
+    ]
+  },
+  "required_packages": [
+    "com.android.systemui",
+    "com.android.launcher3",
+    "com.zhonghong.logic",
+    "com.zh.zhpower",
+    "com.zhonghong.eq",
+    "com.zhonghong.radio",
+    "com.zhonghong.bluetooth",
+    "com.zhonghong.dvr",
+    "com.zhonghong.dvrdaemon",
+    "com.zhonghong.camera",
+    "com.zjinnova.zlink",
+    "com.android.bluetooth",
+    "com.zhonghong.voiceservice",
+    "com.qualcomm.location",
+    "com.android.phone",
+    "org.codeaurora.ims",
+    "com.qualcomm.qcrilmsgtunnel",
+    "com.android.providers.telephony",
+    "com.qti.phone",
+    "com.qualcomm.qti.telephonyservice"
   ]
 }

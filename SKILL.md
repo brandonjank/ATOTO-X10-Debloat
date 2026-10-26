@@ -9,6 +9,10 @@ Work from this skill's directory; the bundled `tools/`, `profiles/`, `docs/`
 and `android/` folders are relative to it. Preserve the owner's requested
 features and existing authorizations. Do not assume the source owner's app
 preferences apply to another driver.
+Obtain the whole repository, not just this Markdown file. Read the executable
+sequence and recovery branches in [AGENT-RUNBOOK.md](docs/AGENT-RUNBOOK.md) when
+performing a first-device trial. No source APK or firmware download is needed
+for ordinary audit, backup, disable-only cleanup or rollback.
 
 ## Audit and backup
 
@@ -23,6 +27,9 @@ Run `python tools/x10.py --serial SERIAL audit`. `--adb PATH` may precede the
 command. Read [the compatibility profile](profiles/stock-20260403.json).
 Model `X10` alone is insufficient: application version, Android/platform,
 fingerprint and three stock hardware APK hashes must match for automated writes.
+Only Android owner user 0 is supported. Selected optional apps must also match
+the APK hashes recorded in the profile, including any splits. An auto-updated
+app is a new review case; exclude it rather than editing the guard to proceed.
 If they differ, gather read-only evidence and explain the mismatch. Do not
 rewrite the profile or add an override merely to pass the check.
 
@@ -30,7 +37,17 @@ Create `snapshot --out .local/UNIQUE_NAME --with-apks`, then
 `verify --snapshot .local/UNIQUE_NAME`. Save the snapshot outside public source
 or in ignored `.local/`. `--resume` is available after an interrupted capture.
 A snapshot is APKs/settings evidence, not a partition or private-app-data image.
-Export the current home through its native backup UI before launcher changes.
+The actual original HOME APK(s) are included, even for a third-party launcher.
+Run `check --snapshot PATH --out .local/before-check.json` and privately record
+which required physical features work **before** cleanup. Existing failures
+need to be distinguished from trial regressions. Packages being enabled does
+not prove a camera, microphone, SIM or phone connection works.
+Export the current home through its native backup UI before launcher changes;
+copy the export to the PC and use `attach-export --snapshot PATH --file FILE`,
+then verify again. Original Lawnchair needs its native export before a HOME
+switch. For an OEM launcher without an export, preserve its data in place and
+privately photograph the layout, audio/EQ and vehicle settings; record that the
+snapshot cannot restore all private settings after a reset.
 Use [RESTORE.md](docs/RESTORE.md) to distinguish returning to the existing home,
 restoring this trial's changes, and rebuilding a lost device configuration.
 
@@ -49,6 +66,12 @@ existing explicit cleanup authorization if it covers the displayed choices;
 otherwise obtain authorization for that concrete plan before executing it.
 This skill's invocation alone does not authorize unrelated removals or all
 fourteen optional packages. The tool records rollback values and verifies writes.
+Use a fresh snapshot per batch; keep earlier snapshots intact. Only one cleanup
+journal and one launcher trial are allowed per snapshot. `--apk-cache` can reuse
+verified APKs from an earlier private snapshot to reduce Wi-Fi transfer time.
+Run `check` and the physical tests after each batch, and again after any parked,
+owner-controlled reboot. Stop expanding the trial on a regression or warning
+that has not been explained. Do not force-stop an entire shared system UID.
 
 Never disable the protected packages, delete shared-UID services, apply generic
 background-process limits, alter CPU/MCU/USB/DVR shutdown timing, or change SIM
@@ -69,9 +92,11 @@ the source owner's private launcher backup, account data or widget IDs.
 Install the trial alongside the existing home. Launch its explicit MAIN /
 LAUNCHER activity first; keep the working default until it is stable. Add
 widgets with Android's normal binding flow. Then switch HOME only within the
-authorized trial. `home oem`, `home lawnchair`, and `home x10` preview a switch;
-add `--execute` for an installed, enabled home. Native ATOTO taskbar visibility
-is separate. Do not disable OEM Quickstep to hide it. This release does not
+authorized trial. `home x10 --snapshot PATH` previews the change and preserves
+the snapshot's original HOME in a separate journal. Add `--execute` only after
+the explicit MAIN / LAUNCHER test. `home original --snapshot PATH --execute`
+returns to the actual original HOME, including a third-party launcher. Native
+ATOTO taskbar visibility is separate. Do not disable OEM Quickstep to hide it. This release does not
 automate the source unit's temporary debugger-based taskbar customization.
 
 ## Verify, recover and report
@@ -84,6 +109,12 @@ between user-reported behavior, software checks and measured timing.
 
 On a failed trial, stop further changes and use the saved journal's
 `restore --snapshot PATH` preview, then `--execute` within the authorized rollback.
+This restores any journaled HOME first, then attempted package/settings changes;
+it also handles an interrupted apply or a HOME-only trial. A changed connection
+port does not change the device identity; reconnect to the new Wi-Fi endpoint.
+Keep journals and the original snapshot; do not start a new apply to repair an
+interrupted trial. If a guard prevents recovery, follow the inspected, limited
+manual recovery branch in RESTORE.md rather than weakening the check.
 Switch to the retained working HOME first if the trial launcher fails. Never
 use a factory reset or partition write as routine rollback.
 
