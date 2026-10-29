@@ -1,6 +1,6 @@
 ---
 name: atoto-x10-debloat
-description: Audit, back up, selectively debloat, trial the Lawnchair X10 home screen, and restore a supported ATOTO X10 head unit over Wi-Fi ADB while preserving its hardware features. Use for stock Android configuration work, not firmware flashing.
+description: Audit, back up, selectively debloat, trial Lawnchair X10, optionally customize the still boot logo, and restore a supported ATOTO X10 over Wi-Fi ADB. Use for stock configuration and the explicit logo-only workflow, not replacement ROM or MCU flashing.
 ---
 
 # ATOTO X10 Debloat
@@ -99,6 +99,28 @@ returns to the actual original HOME, including a third-party launcher. Native
 ATOTO taskbar visibility is separate. Do not disable OEM Quickstep to hide it. This release does not
 automate the source unit's temporary debugger-based taskbar customization.
 
+## Optional still boot logo
+
+Only when requested, read [BOOT-LOGO.md](docs/BOOT-LOGO.md) and use
+`tools/boot_logo.py`. This is a separate, explicit **splash partition write**;
+the OEM updater automatically restarts Android. Ordinary cleanup authorization
+does not include it. Preserve existing owner authorization when it covers the
+reviewed image and update, and confirm current parked readiness for the restart.
+Do not confuse a still logo with Android's boot animation or the FactoryTools
+hardware-configuration selector.
+
+Prepare and show that owner's image, capture/verify the complete original splash,
+then preview/stage only the generated marker and BMP. Use the narrower logo
+profile; no hash overrides or cross-model assumptions. The already installed
+stock direct-command reader is used without installing a root manager or helper.
+Keep the ordinary APK/settings snapshot as well; it does not contain splash.
+Install only the logo component, reconnect after its automatic reboot, verify
+the full partition and repeat physical checks. Do not replay an attempted install
+after a lost link. Restore the owner's original splash through the separate
+previewed restoration command when authorized. Raw restoration has not been
+physically trialed; unknown/partial state stops for recovery inspection.
+Keep all artwork, images and identity-bound journals private.
+
 ## Verify, recover and report
 
 Check the cameras/reverse priority, DVR recording/playback, all speaker outputs,
@@ -116,7 +138,9 @@ Keep journals and the original snapshot; do not start a new apply to repair an
 interrupted trial. If a guard prevents recovery, follow the inspected, limited
 manual recovery branch in RESTORE.md rather than weakening the check.
 Switch to the retained working HOME first if the trial launcher fails. Never
-use a factory reset or partition write as routine rollback.
+use a factory reset or partition write as routine cleanup/launcher rollback.
+The explicitly requested boot-logo workflow has its own splash-only restoration
+and does not alter OS, boot, MCU or modem partitions.
 
 Report the actual changes, snapshot path, compatibility, physical test results,
 unresolved issues and exact restore command. No claim that all spyware is

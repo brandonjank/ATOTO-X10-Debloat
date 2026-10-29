@@ -128,6 +128,15 @@ switching. Its package and data remain intact. This is a launcher replacement,
 not a taskbar/Quickstep/service replacement. No debugger or database injection
 is required. Repeat camera reverse priority and all feature checks after it.
 
+## Optional custom still boot logo
+
+When the owner requests a logo change, follow [BOOT-LOGO.md](BOOT-LOGO.md).
+It is separate from ordinary debloat: back up the full splash partition,
+show the owner's prepared image, stage only the marker/BMP, and obtain current
+parked readiness for the OEM updater's automatic restart. Use the separate
+logo helper and journal, verify after reboot and record actual physical results.
+Do not infer logo-update permission from a cleanup or launcher request.
+
 ## Recover, including after a connection failure
 
 Read RESTORE.md before a write. If only the home is failing:

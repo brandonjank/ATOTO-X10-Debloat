@@ -9,6 +9,12 @@ debugging off when no longer needed if that matches the owner's preference.
 The project does not add a fixed-port ADB relay, boot listener, privileged helper
 or authentication workaround. The earlier experimental relay is not included.
 
+The optional still-logo helper uses the existing stock `su 0,2000` direct-command
+route to read splash and, only for explicit restoration, write the saved original
+back. The OEM logo installation itself writes splash and automatically reboots.
+No root daemon or root-manager APK is installed. These privileged operations are
+separate from ordinary disable-only cleanup; read [BOOT-LOGO.md](docs/BOOT-LOGO.md).
+
 Keep `.local/`, snapshots, accounts, private signing material and OEM firmware
 outside public releases. `check_release.py` checks the reviewed source list for
 common accidental leaks; it is not proof that arbitrary imported files are safe.

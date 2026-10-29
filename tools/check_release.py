@@ -4,7 +4,8 @@ from pathlib import Path, PurePosixPath
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
-BLOCKED = {'.apk', '.img', '.bin', '.jks', '.keystore', '.p12', '.pfx', '.pem', '.key', '.lawnchairbackup', '.zip', '.gz', '.log'}
+BLOCKED = {'.apk', '.img', '.bin', '.jks', '.keystore', '.p12', '.pfx', '.pem', '.key', '.lawnchairbackup', '.zip', '.gz', '.log',
+           '.bmp', '.png', '.jpg', '.jpeg', '.webp'}
 PATTERNS = {
     'private IPv4': r'\b(?:10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})\b',
     'ADB device identity': r'adb-[0-9a-f]{8}-[A-Za-z0-9]+\._adb',

@@ -14,6 +14,11 @@ downloads/
 *.bin
 *.zip
 *.gz
+*.bmp
+*.png
+*.jpg
+*.jpeg
+*.webp
 *.jks
 *.keystore
 *.p12

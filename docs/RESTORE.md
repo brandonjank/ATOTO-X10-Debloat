@@ -4,6 +4,10 @@ Keep the private snapshot and any native launcher export on another storage
 device. Verify the APK hashes before relying on them. A hash proves integrity,
 not that a restoration path has been physically demonstrated.
 
+Custom still boot logos use a separate complete splash backup and journal.
+See [BOOT-LOGO.md](BOOT-LOGO.md) for the splash-only restoration helper and its
+limits. `x10.py restore` does not restore a boot logo or Android animation.
+
 ## Recover the home screen first
 
 With Wi-Fi ADB connected, preview one of:

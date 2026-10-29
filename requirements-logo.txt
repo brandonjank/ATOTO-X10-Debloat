@@ -1,0 +1,2 @@
+# Optional PC image preparation; ordinary debloat tools remain stdlib-only.
+Pillow==12.3.0
