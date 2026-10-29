@@ -1,3 +1,17 @@
+# 0.3.0-preview
+
+Introduce our own open-source X10 Home dashboard, independent of Lawnchair and
+OEM launcher code. It hosts the five standard radio/map/weather/media widgets,
+provides eight wide dock targets, an apps list, widget binding/configuration and
+Android HOME-role selection. No requested permissions, network/analytics SDK,
+shared UID, services or boot receiver. Build with an owner-controlled local key.
+
+Add the exact-stock launcher audit, privacy/logging findings, feature gaps and
+ordinary-UID replacement plan. Preserve Quickstep/hardware backends and the
+previous HOME during preview; hardware/reboot acceptance is not implied by
+source, APK or geometry validation. Native layout export/import and the OEM
+injected map/DVR/vehicle panels are not implemented in the first preview.
+
 # 0.2.0-preview
 
 Optional custom still boot logos:

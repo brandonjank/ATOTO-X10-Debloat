@@ -1,7 +1,8 @@
 # ATOTO X10 Debloat
 
-Experimental, reversible stock-Android cleanup and a Lawnchair X10 home-screen
-trial for the ATOTO X10G2A7E. This is the working baseline before a separate
+Experimental, reversible stock-Android cleanup and our new open-source X10 Home
+launcher preview for the ATOTO X10G2A7E. The legacy Lawnchair adaptation remains
+available for existing setups. This is the working baseline before a separate
 clean-Android project. **This repository does not contain a flashable ROM.**
 
 Tested on one X10G2A7E, Android 13/API 33, Snapdragon 6125/trinket,
@@ -75,6 +76,10 @@ after every batch. Use a fresh snapshot for the next batch. Preview
   it does not establish that an app is malware.
 - `android/` and build tools: compact Audible widget source and the narrow
   Lawnchair dock adaptation. See [building](docs/BUILDING.md).
+- [X10 Home](docs/X10-HOME.md): our own source-built launcher preview, with
+  standard widgets and a large dock. It is intended to replace Lawnchair after
+  acceptance testing, with no Lawnchair or OEM code dependency. Read the
+  [stock launcher audit](docs/STOCK-LAUNCHER-AUDIT.md) for findings and gaps.
 - Optional [custom boot logo workflow](docs/BOOT-LOGO.md): prepare your own
   image and USB kit, back up the complete original splash, stage/install the
   logo alone over Wi-Fi, verify and restore. **This separate opt-in workflow
@@ -110,7 +115,7 @@ from their publishers; no Google, Audible, Pandora or OEM binaries are bundled.
 python -m pip install -r requirements-logo.txt
 python -m unittest discover -s tests -v
 python tools/check_release.py
-python tools/package_release.py --out ../releases/ATOTO-X10-Debloat-0.2.0-preview.zip
+python tools/package_release.py --out ../releases/ATOTO-X10-Debloat-0.3.0-preview.zip
 ```
 
 The packager uses an explicit reviewed file list and produces a checksum and

@@ -4,6 +4,11 @@ Audit/debloat/restore uses only Python's standard library and ADB. This page is
 needed only for the optional custom home or Audible widget. These build tools
 write PC files; they never install an app or change a device.
 
+For **our own open-source X10 Home**, follow [X10-HOME.md](X10-HOME.md) and use
+`tools/build_x10_home.py`. It needs only Python, JDK and Android SDK tools; no
+Lawnchair APK, Apktool or OEM binaries are inputs. The Lawnchair/Apktool inputs
+below apply to the retained legacy adaptation, not to X10 Home.
+
 ## Inputs
 
 - Python 3.11+, JDK 17+, Android SDK platform 33 and build-tools 35.0.0.

@@ -1,0 +1,18 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="io.atoto.x10home" android:versionCode="1" android:versionName="0.1.0-preview">
+  <uses-sdk android:minSdkVersion="26" android:targetSdkVersion="33"/>
+  <queries>
+    <intent><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent>
+    <intent><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent>
+    <package android:name="com.zhonghong.appwidgets"/>
+    <package android:name="com.zhonghong.weatherwidget"/>
+    <package android:name="com.google.android.apps.maps"/>
+    <package android:name="com.pandora.android"/>
+    <package android:name="io.atoto.tools.audiblewidget"/>
+  </queries>
+  <application android:label="X10 Home" android:icon="@drawable/home_icon" android:theme="@style/HomeTheme" android:allowBackup="false" android:debuggable="false" android:supportsRtl="true">
+    <activity android:name=".HomeActivity" android:exported="true" android:launchMode="singleTask" android:screenOrientation="landscape" android:configChanges="orientation|screenSize|keyboardHidden" android:resizeableActivity="true">
+      <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
+      <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.HOME"/><category android:name="android.intent.category.DEFAULT"/></intent-filter>
+    </activity>
+  </application>
+</manifest>
