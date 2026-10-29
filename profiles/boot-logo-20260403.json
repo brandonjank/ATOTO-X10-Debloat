@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "name": "X10G2A7E logo-only updater, application 20260403.140715",
+  "updater": "/oem/app/ZHUpdate/ZHUpdate.apk",
+  "updater_sha256": "18a14bfb802825c37e7b50f575a36a6e9d6544c9e4e1898638eaaeefdc3f7631",
+  "stock_su": "/system/xbin/su",
+  "stock_su_sha256": "be6453df1b13065651282e07cd0506f511a403e2f8fe2e410bded03f53e7e78f",
+  "partition": "/dev/block/by-name/splash",
+  "maximum_partition_bytes": 67108864,
+  "panel_configs": [4],
+  "rotated_panel_property": "12,",
+  "marker": "qcm6125_T10.txt",
+  "maximum_image_size": [1280, 720],
+  "limits": "One X10G2A7E tested. Other firmware, panels and S8 models require a separate review. Raw restoration is prepared but not physically trialed."
+}

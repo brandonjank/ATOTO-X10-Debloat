@@ -75,6 +75,10 @@ after every batch. Use a fresh snapshot for the next batch. Preview
   it does not establish that an app is malware.
 - `android/` and build tools: compact Audible widget source and the narrow
   Lawnchair dock adaptation. See [building](docs/BUILDING.md).
+- Optional [custom boot logo workflow](docs/BOOT-LOGO.md): prepare your own
+  image and USB kit, back up the complete original splash, stage/install the
+  logo alone over Wi-Fi, verify and restore. **This separate opt-in workflow
+  writes splash and the OEM updater automatically restarts Android.**
 - [Restore guide](docs/RESTORE.md), [friend trial](docs/FRIEND-TRIAL.md),
   [baseline](docs/BASELINE.md), and [release notes](CHANGELOG.md).
 
@@ -103,9 +107,10 @@ from their publishers; no Google, Audible, Pandora or OEM binaries are bundled.
 ## Development and release
 
 ```powershell
+python -m pip install -r requirements-logo.txt
 python -m unittest discover -s tests -v
 python tools/check_release.py
-python tools/package_release.py --out ../releases/ATOTO-X10-Debloat-0.1.1-preview.zip
+python tools/package_release.py --out ../releases/ATOTO-X10-Debloat-0.2.0-preview.zip
 ```
 
 The packager uses an explicit reviewed file list and produces a checksum and
