@@ -82,6 +82,16 @@ no global logging or additional performance tweaks are part of this installer.
 
 ## Launcher trial
 
+For the owner's own open-source launcher, use [X10-HOME.md](docs/X10-HOME.md)
+and the [stock audit](docs/STOCK-LAUNCHER-AUDIT.md). X10 Home is an independent
+source-built app, `io.atoto.x10home`, with no Lawnchair/OEM code, shared UID or
+requested permissions. Preview it explicitly before choosing HOME and retain the
+working launcher as rollback. Its standard widgets do not reproduce OEM-injected
+map/DVR/vehicle views. Complete the physical checks before retiring Lawnchair.
+The legacy `x10.py home x10` choice below still means the Lawnchair adaptation;
+it does not select this new app. Use the new app's normal Android Home-role flow
+and record the exact original component for rollback.
+
 Read [BUILDING.md](docs/BUILDING.md) only when a custom APK is needed. The
 Lawnchair adaptation uses a pinned official APK and separate package
 `io.atoto.home`, retains original launchers, and adds only dock layout hooks.
