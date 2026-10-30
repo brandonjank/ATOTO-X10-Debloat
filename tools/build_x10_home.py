@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 import subprocess
 import zipfile
+import xml.etree.ElementTree as ET
 
 ROOT=Path(__file__).resolve().parents[1]
 parser=argparse.ArgumentParser(description=__doc__)
@@ -48,7 +49,10 @@ if not key.exists():
     run([tools['keytool'],'-genkeypair','-keystore',key,'-storetype','PKCS12','-storepass:env','X10_SIGNING_PASSWORD',
          '-keypass:env','X10_SIGNING_PASSWORD','-alias',args.alias,'-keyalg','RSA','-keysize','3072',
          '-validity','10000','-dname','CN=X10 Home Local Development'])
-apk=out/'X10-Home-0.1.0-preview.apk'
+version=ET.parse(project/'AndroidManifest.xml').getroot().get('{http://schemas.android.com/apk/res/android}versionName')
+if not version or any(c not in '0123456789abcdefghijklmnopqrstuvwxyz.-' for c in version):
+    raise RuntimeError('Invalid versionName for APK filename')
+apk=out/('X10-Home-'+version+'.apk')
 run([tools['java'],'-jar',tools['apksigner_jar'],'sign','--ks',key,'--ks-pass','env:X10_SIGNING_PASSWORD',
      '--ks-key-alias',args.alias,'--out',apk,out/'aligned.apk'])
 verification=run([tools['java'],'-jar',tools['apksigner_jar'],'verify','--verbose','--print-certs',apk])

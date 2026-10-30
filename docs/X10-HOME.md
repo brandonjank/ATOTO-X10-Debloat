@@ -11,9 +11,16 @@ Keep the working launcher's native export and data as the rollback baseline.
 
 Three columns hold radio/source, Google Maps Nearby Traffic, and weather above
 Pandora/Audible controls. Eight large dock targets span the bottom. Long-press a
-dock item to choose another app. Apps, Panels, Home app and Previous home buttons
-provide setup/navigation; a TextClock shows the date/time. Launching the preview
+dock item to choose another app. Apps opens the app list; Setup contains Panels,
+Choose default home and Previous home. A TextClock shows the date/time. Launching the preview
 does not itself select default HOME.
+
+Preview 0.1.1 gives the weather forecast priority over spare media-panel space:
+at the source unit's 1280x638 content area, weather is 242 dp tall (previously
+209), Pandora is 100 and Audible is 96. The 80 dp dock icons and 152 dp touch
+cells are retained. Flat dark surfaces, separated dock tiles and press feedback
+make the panel boundaries clearer. Widget content and permissions remain owned
+by their original providers; a provider refresh can temporarily show missing data.
 
 The app requests no permissions: no INTERNET, location, camera, microphone,
 telephony, all-files, secure-settings or notification-listener access. It has no
@@ -48,7 +55,7 @@ format, and records source/APK hashes. It never installs or selects HOME.
    Preserve the working default and original launchers throughout the trial.
 2. With the owner parked/ready, normally install the reviewed new APK and launch
    io.atoto.x10home/.HomeActivity explicitly. Verify default HOME stayed unchanged.
-3. Choose Panels, Set up missing panels. Approve Android's binding/configuration
+3. Choose Setup, Panels, Set up missing panels. Approve Android's binding/configuration
    dialogs for the five wanted providers. Widget IDs are allocated to this host;
    never copy another host's IDs or private launcher database.
 4. Panels can choose other widgets. A canceled replacement preserves the previous
@@ -58,7 +65,7 @@ format, and records source/APK hashes. It never installs or selects HOME.
    [physical matrix](FRIEND-TRIAL.md), especially reverse priority, DVR recording,
    calls/CarPlay, all speakers and physical-SIM data. Software checks do not prove
    those features work.
-6. Only after preview checks pass, use Home app and Android's normal role dialog
+6. Only after preview checks pass, use Setup, Choose default home and Android's normal role dialog
    for a default-home trial. Record the previous HOME first; keep OEM Quickstep
    and hardware services. Test hardware Home/recents, reboot and sleep/wake.
 

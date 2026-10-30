@@ -60,6 +60,10 @@ public class LayoutCheck {
   }
   HomeLayout nativeLayout=new HomeLayout(1280,662);
   require(nativeLayout.dock[0].width==152&&nativeLayout.dock[0].height>=104);
+  HomeLayout insetLayout=new HomeLayout(1280,638);
+  require(insetLayout.panels[2].height>=240);
+  require(insetLayout.panels[3].height>=100&&insetLayout.panels[4].height>=96);
+  require(insetLayout.toolbar.height>=48&&insetLayout.dock[0].height>=104);
   boolean rejected=false;try{new HomeLayout(500,200);}catch(IllegalArgumentException expected){rejected=true;}
   require(rejected);System.out.println(cases+" layouts checked");
  }

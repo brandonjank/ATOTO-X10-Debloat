@@ -6,6 +6,11 @@ provides eight wide dock targets, an apps list, widget binding/configuration and
 Android HOME-role selection. No requested permissions, network/analytics SDK,
 shared UID, services or boot receiver. Build with an owner-controlled local key.
 
+Home APK 0.1.1 gives the weather forecast more vertical space without changing
+widget IDs or the default home, consolidates setup actions, and uses flat dark
+surfaces with separated dock tiles and press feedback. The original large dock
+targets remain; geometry tests include the source unit's system-bar insets.
+
 Add the exact-stock launcher audit, privacy/logging findings, feature gaps and
 ordinary-UID replacement plan. Preserve Quickstep/hardware backends and the
 previous HOME during preview; hardware/reboot acceptance is not implied by

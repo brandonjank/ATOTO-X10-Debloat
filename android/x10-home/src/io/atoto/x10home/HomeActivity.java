@@ -62,24 +62,39 @@ public final class HomeActivity extends Activity {
     }
     private Button button(String title,Runnable action){
         Button b=new Button(this);b.setText(title);b.setAllCaps(false);b.setTextColor(0xffeaf2f5);
-        b.setTextSize(14);b.setMinHeight(dp(48));b.setOnClickListener(v->action.run());return b;
+        b.setTextSize(16);b.setMinHeight(dp(48));b.setOnClickListener(v->action.run());return b;
+    }
+    private Button toolbarButton(String title,Runnable action){
+        Button b=button(title,action);b.setBackground(new RippleDrawable(
+            android.content.res.ColorStateList.valueOf(0x40ffffff),background(0xff282c30,8),null));
+        b.setPadding(dp(16),0,dp(16),0);return b;
+    }
+    private void setupMenu(){
+        new AlertDialog.Builder(this).setTitle("X10 Home")
+            .setItems(new String[]{"Panels","Choose default home","Previous home"},(dialog,which)->{
+                if(which==0)panelMenu();else if(which==1)chooseHome();else previousHome();
+            }).setNegativeButton("Close",null).show();
     }
     private void render(){
         dashboard=new Dashboard();
-        dashboard.setBackground(new GradientDrawable(GradientDrawable.Orientation.TL_BR,
-            new int[]{0xff172e3d,0xff101825,0xff09111c}));
+        dashboard.setBackgroundColor(0xff101214);
         LinearLayout bar=new LinearLayout(this);bar.setGravity(Gravity.CENTER_VERTICAL);
+        TextView brand=new TextView(this);brand.setText("X10 Home");brand.setTextColor(Color.WHITE);
+        brand.setTextSize(20);brand.setTypeface(null,android.graphics.Typeface.BOLD);
+        bar.addView(brand,new LinearLayout.LayoutParams(dp(144),-2));
         TextClock clock=new TextClock(this);clock.setFormat12Hour("EEE, MMM d  •  h:mm a");
         clock.setFormat24Hour("EEE, MMM d  •  HH:mm");clock.setTextColor(0xffedf5f7);clock.setTextSize(20);
+        clock.setGravity(Gravity.CENTER_VERTICAL);clock.setSingleLine(true);
+        clock.setEllipsize(android.text.TextUtils.TruncateAt.END);
         bar.addView(clock,new LinearLayout.LayoutParams(0,-1,1));
-        bar.addView(button("Apps",()->appPicker(-1)));
-        bar.addView(button("Panels",()->panelMenu()));
-        bar.addView(button("Home app",()->chooseHome()));
-        bar.addView(button("Previous home",()->previousHome()));
+        LinearLayout.LayoutParams appsParams=new LinearLayout.LayoutParams(dp(96),dp(48));
+        bar.addView(toolbarButton("Apps",()->appPicker(-1)),appsParams);
+        LinearLayout.LayoutParams setupParams=new LinearLayout.LayoutParams(dp(112),dp(48));setupParams.leftMargin=dp(8);
+        bar.addView(toolbarButton("Setup",()->setupMenu()),setupParams);
         dashboard.addView(bar);
         for(int i=0;i<5;i++){
             final int slot=i;
-            FrameLayout panel=new FrameLayout(this);panel.setBackground(background(0xff192837,18));
+            FrameLayout panel=new FrameLayout(this);panel.setBackground(background(0xff1c2024,12));
             panel.setContentDescription(TITLES[i]+" panel");
             int id=prefs.getInt("widget_"+slot,-1);
             AppWidgetProviderInfo info=id<0?null:manager.getAppWidgetInfo(id);
@@ -102,7 +117,8 @@ public final class HomeActivity extends Activity {
             final int index=i;
             LinearLayout cell=new LinearLayout(this);cell.setOrientation(LinearLayout.VERTICAL);
             cell.setGravity(Gravity.CENTER);cell.setFocusable(true);cell.setClickable(true);
-            cell.setBackground(background(0x191d7184,14));
+            cell.setBackground(new RippleDrawable(android.content.res.ColorStateList.valueOf(0x40ffffff),
+                new InsetDrawable(background(0xff1c2024,10),dp(3),0,dp(3),0),null));
             String target=prefs.getString("dock_"+i,DEFAULT_APPS[i]);
             String label=prefs.getString("dock_label_"+i,LABELS[i]);
             ImageView icon=new ImageView(this);icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
